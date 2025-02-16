@@ -78,8 +78,14 @@ WSGI_APPLICATION = 'lunasci.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # changing the engine would require extensive setup, 
+        # that's why it's not configurable trough env vars
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB", default="hydroponics_db").strip(),
+        "USER": os.environ.get("POSTGRES_USER").strip(),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD").strip(),
+        "HOST": os.environ.get("POSTGRES_HOST", "localhost").strip(),
+        "PORT": os.environ.get("POSTGRES_PORT", "5432").strip(),
     }
 }
 

@@ -5,5 +5,15 @@
 3. Install required packages: `pip install -r requirements.txt`
 4. Create your `.env.local` file: `cp .env.sample .env.local`
  - Uncomment the lines and change the variables according to your enviroment
- - The only things you *always* need to set are: `SECRET_KEY`
+ - The only things you *always* need to set are: `SECRET_KEY`, `POSTGRES_USER` and `POSTGRES_PASSWORD`
 5. Run `set -a && source .env.local && set +a` to set env vars from your `.env.local` file
+6. Setup docker
+ - You can set it up locally:
+  - You need to install it: `sudo apt install postgres`
+  - Open the psql prompt: `sudo -u postgres psql`
+  - Create the database: `CREATE DATABASE <POSTGRES_DB from .env.local>;`
+  - Create the user: `CREATE USER <POSTGRES_USER from .env.local> WITH PASSWORD '<POSTGRES_PASSWORD from .env.local>';`
+  - Give your user the nessecary permissions: `ALTER DATABASE <POSTGRES_DB> OWNER TO <POSTGRES_USER>;`
+ - Or, alternatively, launch it in Docker:
+  - **TODO**
+7. Run the initial migration: `python manage.py migrate`
