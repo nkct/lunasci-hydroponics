@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d3vi!1)fbo2$mpm+j7+_d-ppk&3=zj%t%1na)g%yh(8rh_jncf'
+if "SECRET_KEY" not in os.environ:
+    AssertionError("The SECRET_KEY enviroment variable must be set!")
+SECRET_KEY = os.environ.get("SECRET_KEY").strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", default="0").strip())
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="localhost 127.0.0.1 [::1]").strip().split(" ")
 
 
 # Application definition
@@ -65,7 +68,7 @@ TEMPLATES = [
             ],
         },
     },
-]
+]environ.get
 
 WSGI_APPLICATION = 'lunasci.wsgi.application'
 
@@ -103,9 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = os.environ.get("LANGUAGE_CODE", default="en-us").strip()
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.environ.get("TIME_ZONE", default="Europe/Warsaw").strip()
 
 USE_I18N = True
 
