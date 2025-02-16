@@ -1,0 +1,6 @@
+
+## First Time Setup
+1. Setup the Python virtual enviroment: `python3 -m venv env`
+ - You might need to run `apt install python3.12-venv` beforehand
+2. Activate the venv with `source env/bin/activate`
+3. Install required packages: `pip install -r requirements.txt`
