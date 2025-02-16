@@ -68,7 +68,7 @@ TEMPLATES = [
             ],
         },
     },
-]environ.get
+]
 
 WSGI_APPLICATION = 'lunasci.wsgi.application'
 
