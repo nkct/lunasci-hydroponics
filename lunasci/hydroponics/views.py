@@ -159,5 +159,6 @@ class APIRoot(generics.GenericAPIView):
             'users': reverse('user-list', request=request),
             'hydroponics': reverse('hydroponics-list', request=request),
             'sensor_readings': reverse('sensorreading-list', request=request),
-            # 'documentation': 'For full API documentation, visit /docs/ (if available).',
+            'api-schema': reverse('schema', request=request),
+            'api-docs': reverse('docs', request=request),
         })
