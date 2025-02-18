@@ -96,6 +96,11 @@ The API uses Django Filters for query options and drf-spectacular for generating
 
 ## Development
 
+- **Running the Tests:**  
+  ```bash
+  python manage.py test
+  ```
+
 - **PEP8 Compliance:**  
   After making changes, ensure your code adheres to PEP8 by running:
   ```bash
