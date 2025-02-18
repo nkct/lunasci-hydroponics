@@ -34,6 +34,10 @@ class Hydroponics(models.Model):
 
     class Meta:
         db_table = 'hydroponics'
+        indexes = [
+            models.Index(fields=["created"]),
+            models.Index(fields=["owner"]),
+        ]
 
 class SensorReading(models.Model):
     """
@@ -54,3 +58,10 @@ class SensorReading(models.Model):
 
     class Meta:
         db_table = 'sensor_reading'
+        indexes = [
+            models.Index(fields=["created"]),
+            models.Index(fields=["hydroponics"]),
+            models.Index(fields=["ph"]),
+            models.Index(fields=["temperature"]),
+            models.Index(fields=["tds"]),
+        ]
