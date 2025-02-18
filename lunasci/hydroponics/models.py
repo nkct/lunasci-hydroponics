@@ -1,10 +1,9 @@
 from django.db import models
-
-# Create your models here.
+from django.conf import settings
 
 class Hydroponics(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey('auth.User', related_name='hydroponics', on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='hydroponics', on_delete=models.CASCADE)
     
     class Meta:
         db_table = 'hydroponics'
