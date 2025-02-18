@@ -9,10 +9,11 @@ It includes viewsets for managing:
 It also defines custom filter classes for these resources to enable flexible query parameters.
 """
 
+from django.conf import settings
+
 from rest_framework import permissions, viewsets
 import django_filters
 
-from django.contrib.auth.models import User
 from lunasci.hydroponics.models import Hydroponics, SensorReading
 
 from lunasci.hydroponics.serializers import (
@@ -34,7 +35,7 @@ class UserFilter(django_filters.FilterSet):
     date_joined = django_filters.DateFromToRangeFilter()
 
     class Meta:
-        model = User
+        model = settings.AUTH_USER_MODEL
         fields = {
             'id': ['exact', 'gte', 'lte'], 
             'username': ['exact', 'icontains', 'istartswith'],
@@ -90,7 +91,7 @@ class UserViewSet(viewsets.ModelViewSet):
     access to authenticated users. It also allows filtering and ordering based on 
     specified fields.
     """
-    queryset = User.objects.all()
+    queryset = settings.AUTH_USER_MODEL.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
     ordering = ['date_joined']

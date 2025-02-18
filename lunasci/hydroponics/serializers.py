@@ -6,11 +6,11 @@ It provides serializers for:
     - Hydroponics: Serializing hydroponics system instances.
     - SensorReading: Serializing sensor reading instances.
 """
+from django.conf import settings
 
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
-from django.contrib.auth.models import User
 from lunasci.hydroponics.models import Hydroponics, SensorReading
 
 class HydroponicsSerializer(serializers.HyperlinkedModelSerializer):
@@ -59,7 +59,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model = User
+        model = settings.AUTH_USER_MODEL
         fields = ['url', 'id', 'date_joined', 'username', 'hydroponics']
 
 class SensorReadingSerializer(serializers.HyperlinkedModelSerializer):
