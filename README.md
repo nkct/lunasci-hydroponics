@@ -1,4 +1,23 @@
+# Hydroponics API
+
+## Overview
+
+The Hydroponics API is a RESTful backend service designed to manage and monitor hydroponic systems. Built with Django and Django REST Framework, this project provides an interface for:
+
+- **Hydroponic System Management:**  
+  Create, retrieve, update, and delete records of hydroponic systems. Each system is associated with a user and can be tracked over time.
+
+- **Sensor Data Logging:**  
+  Record and access sensor readings, including pH, temperature, and total dissolved solids (TDS), for each system.
+
+- **User Management:**  
+  Manage user accounts with endpoints for authentication and user-specific data, ensuring that only authorized users can modify their own systems.
+
+The API uses Django Filters for query options and drf-spectacular for generating interactive API documentation. PostgreSQL is the database backend.
+
 ## First Time Setup
+*Note*: This guide is for Ubuntu Linux, if you're on Windows, it's recommended you install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and set it up there.
+
 1. **Set Up the Python Virtual Environment**
    - Create a virtual environment:
      ```bash
