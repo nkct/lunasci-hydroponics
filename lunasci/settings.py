@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if "SECRET_KEY" not in os.environ:
-    AssertionError("The SECRET_KEY enviroment variable must be set!")
+    raise AssertionError("The SECRET_KEY enviroment variable must be set!")
 SECRET_KEY = os.environ.get("SECRET_KEY").strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -81,6 +81,10 @@ WSGI_APPLICATION = 'lunasci.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+if "POSTGRES_USER" not in os.environ:
+    raise AssertionError("The POSTGRES_USER enviroment variable must be set!")
+if "POSTGRES_PASSWORD" not in os.environ:
+    raise AssertionError("The POSTGRES_PASSWORD enviroment variable must be set!")
 DATABASES = {
     'default': {
         # changing the engine would require extensive setup, 
