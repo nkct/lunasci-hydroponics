@@ -20,7 +20,7 @@ class HydroponicsSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Hydroponics
-        fields = ['url', 'id', 'created', 'owner', 'sensor_readings']
+        fields = ['url', 'id', 'created', 'name', 'owner', 'sensor_readings']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     hydroponics = serializers.HyperlinkedRelatedField(many=True, view_name='hydroponics-detail', read_only=True)

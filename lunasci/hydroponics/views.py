@@ -26,6 +26,7 @@ class HydroponicsFilter(django_filters.FilterSet):
         model = Hydroponics
         fields = {
             'id': ['exact', 'gte', 'lte'],
+            'name': ['exact', 'icontains', 'istartswith'],
             'owner__username': ['exact', 'icontains', 'istartswith'],
         }
 
@@ -36,6 +37,7 @@ class SensorReadingFilter(django_filters.FilterSet):
         model = SensorReading
         fields = {
             'id': ['exact', 'gte', 'lte'],
+            'hydroponics__name': ['exact', 'icontains', 'istartswith'],
             'ph': ['exact', 'gte', 'lte'],
             'temperature': ['exact', 'gte', 'lte'],
             'tds': ['exact', 'gte', 'lte'],
