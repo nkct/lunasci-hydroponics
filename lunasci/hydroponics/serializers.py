@@ -1,3 +1,12 @@
+"""
+This module defines serializers for converting model instances to and from JSON format.
+
+It provides serializers for:
+    - User: Serializing Django user instances.
+    - Hydroponics: Serializing hydroponics system instances.
+    - SensorReading: Serializing sensor reading instances.
+"""
+
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 

@@ -1,3 +1,10 @@
+"""
+This module provides custom permission classes for the hydroponics application.
+
+It includes:
+    - IsOwnerOrReadOnly: A permission class that only allows owners of an object to modify it.
+"""
+
 from rest_framework import permissions
 
 class IsOwnerOrReadOnly(permissions.BasePermission):

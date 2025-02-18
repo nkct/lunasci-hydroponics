@@ -1,3 +1,14 @@
+"""
+This module defines REST API viewsets and filters for the hydroponics application.
+
+It includes viewsets for managing:
+    - Users (UserViewSet)
+    - Hydroponics systems (HydroponicsViewSet)
+    - Sensor readings (SensorReadingViewSet)
+
+It also defines custom filter classes for these resources to enable flexible query parameters.
+"""
+
 from rest_framework import permissions, viewsets
 import django_filters
 

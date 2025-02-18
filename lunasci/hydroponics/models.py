@@ -1,3 +1,11 @@
+"""
+This module defines the data models for the hydroponics system.
+
+It contains:
+    - Hydroponics: Represents a hydroponic system instance, including the owner, creation time, and name.
+    - SensorReading: Represents sensor data (pH, temperature, TDS) recorded for a hydroponics system.
+"""
+
 from django.db import models
 from django.conf import settings
 
@@ -11,7 +19,11 @@ class Hydroponics(models.Model):
         name (str): A human-readable name for the hydroponic system.
     """
     created = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='hydroponics', on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        related_name='hydroponics', 
+        on_delete=models.CASCADE
+    )
     name = models.CharField(max_length=512, default="Hydroponics")
 
     def __str__(self):
