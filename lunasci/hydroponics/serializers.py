@@ -1,11 +1,22 @@
 from rest_framework import serializers
+from rest_framework.reverse import reverse
 
 from django.contrib.auth.models import User
 from lunasci.hydroponics.models import Hydroponics, SensorReading
 
 class HydroponicsSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    sensor_readings = serializers.HyperlinkedRelatedField(many=True, view_name='sensorreading-detail', read_only=True, source='readings')
+    sensor_readings = serializers.SerializerMethodField()
+
+    def get_sensor_readings(self, obj):
+        request = self.context.get('request')
+        # Limit the sensor readings to the first 10
+        sensor_readings = obj.readings.all().order_by('-created')[:10]
+        # Return a list of hyperlinks to the sensor reading detail views
+        return [
+            reverse('sensorreading-detail', kwargs={'pk': reading.pk}, request=request)
+            for reading in sensor_readings
+        ]
     
     class Meta:
         model = Hydroponics
