@@ -28,7 +28,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY").strip()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG", default="0").strip())
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="localhost 127.0.0.1 [::1]").strip().split(" ")
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS", 
+    default="localhost 127.0.0.1 [::1]"
+).strip().split(" ")
 
 
 # Application definition
@@ -40,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework',
     'django_filters',
 
@@ -87,7 +90,7 @@ if "POSTGRES_PASSWORD" not in os.environ:
     raise AssertionError("The POSTGRES_PASSWORD enviroment variable must be set!")
 DATABASES = {
     'default': {
-        # changing the engine would require extensive setup, 
+        # changing the engine would require extensive setup,
         # that's why it's not configurable trough env vars
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("POSTGRES_DB", default="hydroponics_db").strip(),

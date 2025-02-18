@@ -1,3 +1,5 @@
 djangorestframework==3.15.2
 psycopg2-binary==2.9.10
 django-filter==25.1
+pylint==3.3.4
+pylint_django==2.6.1

@@ -15,7 +15,11 @@ import django_filters
 from django.contrib.auth.models import User
 from lunasci.hydroponics.models import Hydroponics, SensorReading
 
-from lunasci.hydroponics.serializers import HydroponicsSerializer, UserSerializer, SensorReadingSerializer
+from lunasci.hydroponics.serializers import (
+    HydroponicsSerializer,
+    UserSerializer,
+    SensorReadingSerializer
+)
 from lunasci.hydroponics.permissions import IsOwnerOrReadOnly
 
 class UserFilter(django_filters.FilterSet):
@@ -25,10 +29,10 @@ class UserFilter(django_filters.FilterSet):
     Filters:
         date_joined: Allows filtering users based on a date range.
         id: Allows filtering based on exact, greater than or equal, and less than or equal values.
-        username: Allows filtering based on exact match, case-insensitive containment, and case-insensitive prefix.
+        username: Allows filtering based on exact match, containment, and prefix.
     """
     date_joined = django_filters.DateFromToRangeFilter()
-    
+
     class Meta:
         model = User
         fields = {
@@ -47,7 +51,7 @@ class HydroponicsFilter(django_filters.FilterSet):
         owner__username: Allows filtering based on the owner's username.
     """
     created = django_filters.DateFromToRangeFilter()
-    
+
     class Meta:
         model = Hydroponics
         fields = {
@@ -63,11 +67,11 @@ class SensorReadingFilter(django_filters.FilterSet):
     Filters:
         created: Allows filtering sensor readings based on a date range.
         id: Allows filtering based on exact, greater than or equal, and less than or equal values.
-        hydroponics__name: Allows filtering sensor readings by the name of the associated hydroponics system.
-        ph, temperature, tds: Allows filtering based on exact, greater than or equal, and less than or equal values.
+        hydroponics__name: Allows filtering sensor readings by the name of the related hydroponics.
+        ph, temperature, tds: Allows filtering based on ==, >= and <= operators.
     """
     created = django_filters.DateFromToRangeFilter()
-    
+
     class Meta:
         model = SensorReading
         fields = {

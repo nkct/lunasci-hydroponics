@@ -20,3 +20,7 @@
    - Or, alternatively, launch it in Docker:
      - **TODO**
 7. Apply migrations: `python manage.py migrate`
+
+## Development
+After making any changes, make sure they are PEP8 compliant with:  
+`pylint --load-plugins pylint_django --django-settings-module=lunasci.settings lunasci/settings.py`
