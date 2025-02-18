@@ -5,10 +5,11 @@ from lunasci.hydroponics.models import Hydroponics, SensorReading
 
 class HydroponicsSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    sensor_readings = serializers.HyperlinkedRelatedField(many=True, view_name='sensorreading-detail', read_only=True, source='readings')
     
     class Meta:
         model = Hydroponics
-        fields = ['url', 'created', 'owner']
+        fields = ['url', 'created', 'owner', 'sensor_readings']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     hydroponics = serializers.HyperlinkedRelatedField(many=True, view_name='hydroponics-detail', read_only=True)
