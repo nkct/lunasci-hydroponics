@@ -11,7 +11,9 @@ It also defines custom filter classes for these resources to enable flexible que
 
 from django.contrib.auth import get_user_model
 
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, generics
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 import django_filters
 
 from lunasci.hydroponics.models import Hydroponics, SensorReading
@@ -140,3 +142,22 @@ class SensorReadingViewSet(viewsets.ModelViewSet):
     ordering = ['created']
     ordering_fields = '__all__'
     filterset_class = SensorReadingFilter
+
+class APIRoot(generics.GenericAPIView):
+    """
+    Hydroponics API Entry Point.
+
+    This is the root of the Hydroponics API, which offers an interface 
+    for managing hydroponic systems, monitoring sensor readings, and handling user accounts.
+    """
+
+    def get(self, request, *args, **kwargs):
+        """
+        Return a JSON response with hyperlinks to the main API endpoints.
+        """
+        return Response({
+            'users': reverse('user-list', request=request),
+            'hydroponics': reverse('hydroponics-list', request=request),
+            'sensor_readings': reverse('sensorreading-list', request=request),
+            # 'documentation': 'For full API documentation, visit /docs/ (if available).',
+        })
