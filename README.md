@@ -67,6 +67,10 @@ The API uses Django Filters for query options and drf-spectacular for generating
        ```bash
        sudo -u postgres psql
        ```
+     - Create the database (replace `<POSTGRES_DB>` with the value from `.env.local`):
+       ```sql
+       CREATE DATABASE <POSTGRES_DB>;
+       ```
      - Create the user (replace `<POSTGRES_USER>` and `<POSTGRES_PASSWORD>` with your values):
        ```sql
        CREATE USER <POSTGRES_USER> WITH PASSWORD '<POSTGRES_PASSWORD>';
@@ -74,6 +78,7 @@ The API uses Django Filters for query options and drf-spectacular for generating
      - Grant the necessary permissions:
        ```sql
        ALTER USER lunasci CREATEDB;
+       ALTER DATABASE <POSTGRES_DB> OWNER TO <POSTGRES_USER>;
        ```
    - **Option B: Docker**
      - *TODO*
@@ -88,6 +93,14 @@ The API uses Django Filters for query options and drf-spectacular for generating
    - Run:
      ```bash
      python manage.py runserver
+     ```
+
+9. **Creating a Superuser**
+  You might want to create the initial superuser.
+  Other users can be added from the admin panel.
+   - Run:
+     ```bash
+     python manage.py createsuperuser
      ```
 
 ## Development

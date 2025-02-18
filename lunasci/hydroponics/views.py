@@ -23,7 +23,7 @@ from lunasci.hydroponics.serializers import (
     UserSerializer,
     SensorReadingSerializer
 )
-from lunasci.hydroponics.permissions import IsOwnerOrReadOnly
+from lunasci.hydroponics.permissions import IsOwnerOrReadOnly, IsSelfOrReadOnly
 
 User = get_user_model()
 
@@ -89,15 +89,20 @@ class SensorReadingFilter(django_filters.FilterSet):
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    ViewSet for listing, retrieving, creating, updating, and deleting User instances.
-    
-    This viewset uses the UserSerializer for serializing user data and restricts 
-    access to authenticated users. It also allows filtering and ordering based on 
-    specified fields.
+    ViewSet for managing user accounts.
+
+    This viewset provides endpoints for listing user profiles as well as retrieving,
+    updating, or deleting a user's own profile. The following behaviors are enforced:
+
+      - Unauthenticated users can list all user profiles (with limited public fields).
+      - Authenticated users can only retrieve, update, or delete their own profile.
+      - Creation of new users via this endpoint is disallowed.
+
+    Adding and managing users can be done trough the admin panel at /admin
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsSelfOrReadOnly]
     ordering = ['date_joined']
     ordering_fields = ['id', 'date_joined', 'username']
     filterset_fields = {
@@ -159,6 +164,7 @@ class APIRoot(generics.GenericAPIView):
             'users': reverse('user-list', request=request),
             'hydroponics': reverse('hydroponics-list', request=request),
             'sensor_readings': reverse('sensorreading-list', request=request),
+            'admin': reverse('admin:index', request=request),
             'api-schema': reverse('schema', request=request),
             'api-docs': reverse('docs', request=request),
         })

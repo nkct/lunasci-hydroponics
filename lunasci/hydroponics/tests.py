@@ -102,7 +102,6 @@ class SensorReadingAPITests(APITestCase):
 class UserAPITests(APITestCase):
     def setUp(self):
         self.user1 = User.objects.create_user(username='testuser1', password='pass123')
-        self.client.login(username='testuser1', password='pass123')
 
     def test_list_users(self):
         url = reverse('user-list')
@@ -112,6 +111,7 @@ class UserAPITests(APITestCase):
         self.assertGreaterEqual(len(response.data), 1)
 
     def test_retrieve_user(self):
+        self.client.login(username='testuser1', password='pass123')
         url = reverse('user-detail', kwargs={'pk': self.user1.pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

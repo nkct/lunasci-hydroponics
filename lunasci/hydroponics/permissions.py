@@ -20,3 +20,23 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
         # Write permissions are only allowed to the owner of the snippet.
         return obj.owner == request.user
+
+class IsSelfOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to allow:
+      - Unauthenticated users to list user profiles (which should only include public fields).
+      - Authenticated users to retrieve, update, or delete only their own profile.
+    """
+    def has_permission(self, request, view):
+        # Allow anyone to list users.
+        if view.action == 'list':
+            return True
+        # Disallow user creation via this viewset.
+        if view.action == 'create':
+            return False
+        # For other actions, ensure the user is authenticated.
+        return request.user and request.user.is_authenticated
+
+    def has_object_permission(self, request, view, obj):
+        # For detail endpoints (retrieve, update, partial_update, destroy), only allow if the object is the user.
+        return obj == request.user
