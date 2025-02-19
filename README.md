@@ -81,7 +81,15 @@ The API uses Django Filters for query options and drf-spectacular for generating
        ALTER DATABASE <POSTGRES_DB> OWNER TO <POSTGRES_USER>;
        ```
    - **Option B: Docker**
-     - *TODO*
+     - Install and configure [Docker](https://www.docker.com/)
+     - Set up your env vars and load them. You might want to set all of these:
+       - `POSTGRES_USER`
+       - `POSTGRES_PASSWORD`
+       - `POSTGRES_DB`
+     - Launch the postgres container with:
+       ```bash
+       docker run --name lunasci-postgres -p5432:5432 -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -d postgres
+       ```  
 
 7. **Apply Database Migrations**
    - Run:
